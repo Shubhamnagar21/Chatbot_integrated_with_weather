@@ -48,9 +48,9 @@ export function ChatContainer({ messages, isLoading, onSendMessage }: ChatContai
   }, [messages])
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       <ScrollArea className="flex-1 px-4" ref={scrollRef}>
-        <div className="max-w-3xl mx-auto py-6 space-y-6">
+        <div className="max-w-3xl mx-auto py-6 space-y-6 break-words">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-[50vh] text-center space-y-6">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">

@@ -2,6 +2,16 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { useT } from "@/lib/i18n"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Plus, MessageSquare, Trash2, ChevronLeft, ChevronRight, Clock } from "lucide-react"
@@ -27,8 +37,24 @@ export function ChatSidebar({
   onToggleCollapse,
 }: ChatSidebarProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [sessionToDelete, setSessionToDelete] = useState<string | null>(null)
 
   const { t } = useT()
+
+  const handleDeleteClick = (e: React.MouseEvent, sessionId: string) => {
+    e.stopPropagation()
+    setSessionToDelete(sessionId)
+    setDeleteDialogOpen(true)
+  }
+
+  const confirmDelete = () => {
+    if (sessionToDelete) {
+      onDeleteSession(sessionToDelete)
+      setSessionToDelete(null)
+    }
+    setDeleteDialogOpen(false)
+  }
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp)
@@ -66,14 +92,14 @@ export function ChatSidebar({
   }
 
   return (
-    <div className="h-full w-64 bg-sidebar border-r border-sidebar-border flex flex-col">
+    <div className="h-full w-64 bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="p-3 border-b border-sidebar-border flex items-center justify-between">
+      <div className="p-3 border-b border-sidebar-border flex items-center justify-between shrink-0">
         <Button onClick={onNewChat} className="flex-1 gap-2 justify-start bg-transparent" variant="outline">
           <Plus className="w-4 h-4" />
           {t("newChat")}
         </Button>
-        <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="ml-2">
+        <Button variant="ghost" size="icon" onClick={onToggleCollapse} className="ml-2 shrink-0">
           <ChevronLeft className="w-4 h-4" />
         </Button>
       </div>
@@ -107,19 +133,31 @@ export function ChatSidebar({
                     onMouseEnter={() => setHoveredId(session.id)}
                     onMouseLeave={() => setHoveredId(null)}
                   >
-                    <MessageSquare className="w-4 h-4 shrink-0" />
-                    <span className="truncate flex-1">{session.title}</span>
+                    <MessageSquare className="w-4 h-4 shrink-0 flex-shrink-0" />
+                    <span 
+                      className="flex-1 min-w-0 text-left leading-snug" 
+                      title={session.title}
+                      style={{ 
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        wordBreak: 'break-word',
+                        overflowWrap: 'break-word',
+                        hyphens: 'auto'
+                      }}
+                    >
+                      {session.title}
+                    </span>
                     {hoveredId === session.id && (
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-6 w-6 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onDeleteSession(session.id)
-                        }}
+                        className="h-6 w-6 shrink-0 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive/10 ml-1"
+                        onClick={(e) => handleDeleteClick(e, session.id)}
+                        title={t("deleteChat") || "Delete chat"}
                       >
-                        <Trash2 className="w-3 h-3 text-destructive" />
+                        <Trash2 className="w-3.5 h-3.5 text-destructive" />
                       </Button>
                     )}
                   </div>
@@ -129,6 +167,27 @@ export function ChatSidebar({
           )}
         </div>
       </ScrollArea>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("deleteChatTitle") || "Delete Chat?"}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t("deleteChatDescription") || "Are you sure you want to delete this chat? This action cannot be undone."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("cancel") || "Cancel"}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {t("delete") || "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

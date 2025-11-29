@@ -23,43 +23,43 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
       <div className={cn("max-w-[80%] space-y-3", isUser ? "items-end" : "items-start")}>
         <div
           className={cn(
-            "rounded-2xl px-4 py-3",
+            "rounded-2xl px-4 py-3 break-words overflow-wrap-anywhere",
             isUser ? "bg-primary text-primary-foreground rounded-br-md" : "bg-muted text-foreground rounded-bl-md",
           )}
         >
           {isUser ? (
-            <p className="text-sm whitespace-pre-wrap leading-relaxed">{content}</p>
+            <p className="text-sm whitespace-pre-wrap leading-relaxed break-words overflow-wrap-anywhere">{content}</p>
           ) : (
-            <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-headings:my-2 prose-strong:text-foreground prose-strong:font-semibold">
+            <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-headings:my-2 prose-strong:text-foreground prose-strong:font-semibold break-words overflow-wrap-anywhere">
               <ReactMarkdown
                 components={{
                   // Custom renderers for better styling
-                  p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                  ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                  ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                  li: ({ children }) => <li className="text-sm">{children}</li>,
-                  strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                  em: ({ children }) => <em className="italic">{children}</em>,
-                  h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
-                  h2: ({ children }) => <h2 className="text-base font-bold mb-2">{children}</h2>,
-                  h3: ({ children }) => <h3 className="text-sm font-bold mb-1">{children}</h3>,
+                  p: ({ children }) => <p className="mb-2 last:mb-0 break-words overflow-wrap-anywhere">{children}</p>,
+                  ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1 break-words">{children}</ul>,
+                  ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1 break-words">{children}</ol>,
+                  li: ({ children }) => <li className="text-sm break-words overflow-wrap-anywhere">{children}</li>,
+                  strong: ({ children }) => <strong className="font-semibold break-words">{children}</strong>,
+                  em: ({ children }) => <em className="italic break-words">{children}</em>,
+                  h1: ({ children }) => <h1 className="text-lg font-bold mb-2 break-words">{children}</h1>,
+                  h2: ({ children }) => <h2 className="text-base font-bold mb-2 break-words">{children}</h2>,
+                  h3: ({ children }) => <h3 className="text-sm font-bold mb-1 break-words">{children}</h3>,
                   code: ({ children }) => (
-                    <code className="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded text-xs font-mono">
+                    <code className="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded text-xs font-mono break-all">
                       {children}
                     </code>
                   ),
                   pre: ({ children }) => (
-                    <pre className="bg-black/10 dark:bg-white/10 p-3 rounded-lg overflow-x-auto my-2 text-xs">
+                    <pre className="bg-black/10 dark:bg-white/10 p-3 rounded-lg overflow-x-auto my-2 text-xs break-all whitespace-pre-wrap">
                       {children}
                     </pre>
                   ),
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-2 border-primary/50 pl-3 italic my-2">{children}</blockquote>
+                    <blockquote className="border-l-2 border-primary/50 pl-3 italic my-2 break-words">{children}</blockquote>
                   ),
                   a: ({ href, children }) => (
                     <a
                       href={href}
-                      className="text-primary underline hover:no-underline"
+                      className="text-primary underline hover:no-underline break-all"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

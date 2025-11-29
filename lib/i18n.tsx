@@ -48,6 +48,11 @@ const translations: Record<Lang, Record<string, string>> = {
     "theme.travel": "旅行",
     "theme.agriculture": "農業",
     getRecommendationsForWeather: "天気に基づいたおすすめを取得",
+    deleteChat: "チャットを削除",
+    deleteChatTitle: "チャットを削除しますか？",
+    deleteChatDescription: "このチャットを削除してもよろしいですか？この操作は元に戻せません。",
+    cancel: "キャンセル",
+    delete: "削除",
   },
   "en-US": {
     title: "Weather & Chat Assistant",
@@ -91,6 +96,11 @@ const translations: Record<Lang, Record<string, string>> = {
     "theme.travel": "Travel",
     "theme.agriculture": "Agriculture",
     getRecommendationsForWeather: "Get recommendations based on weather",
+    deleteChat: "Delete chat",
+    deleteChatTitle: "Delete Chat?",
+    deleteChatDescription: "Are you sure you want to delete this chat? This action cannot be undone.",
+    cancel: "Cancel",
+    delete: "Delete",
   },
 }
 
