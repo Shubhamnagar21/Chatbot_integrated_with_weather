@@ -64,6 +64,8 @@ export function ChatContainer({ messages, isLoading, onSendMessage }: ChatContai
                       Get personalized recommendations for <strong>Music</strong>, <strong>Sports</strong>, <strong>Travel</strong>, and <strong>Agriculture</strong> based on current weather conditions.
                       <br />
                       Supports voice input in Japanese and English.
+                      <br />
+                      <span>&#9888;</span> Please fetch the weather first from the Weather Lookup panel to enable accurate weather-based recommendations.
                     </>
                   )}
                 </p>
