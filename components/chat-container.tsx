@@ -8,6 +8,7 @@ import { MessageSquare, Sparkles, Music, Dumbbell, Plane, Sprout } from "lucide-
 import { useT } from "@/lib/i18n"
 import { useWeather } from "./weather-provider"
 import { Button } from "@/components/ui/button"
+import { IoIosWarning } from "react-icons/io";
 
 interface Message {
   id: string
@@ -63,9 +64,10 @@ export function ChatContainer({ messages, isLoading, onSendMessage }: ChatContai
                     <>
                       Get personalized recommendations for <strong>Music</strong>, <strong>Sports</strong>, <strong>Travel</strong>, and <strong>Agriculture</strong> based on current weather conditions.
                       <br />
-                      Supports voice input in Japanese and English.
+                      <IoIosWarning /> Please fetch the weather first from the Weather Lookup panel to enable accurate weather-based recommendations.
                       <br />
-                      <span>&#9888;</span> Please fetch the weather first from the Weather Lookup panel to enable accurate weather-based recommendations.
+                      Supports voice input in Japanese and English.
+                      
                     </>
                   )}
                 </p>
