@@ -173,16 +173,15 @@ export function ChatContainer({
           </div>
 
           {/* Weather warning */}
-          {!weather && (
-            <div className="flex items-start gap-2 px-2 mt-2 text-yellow-600 text-xs">
-              <TriangleAlert className="w-4 h-4" />
-              <p>
-                {language === "ja-JP"
-                  ? "天気に基づいた推奨事項を取得するには、天気検索から天気データを取得してください。"
-                  : "Please fetch weather data from Weather Lookup to get weather-based recommendations."}
-              </p>
-            </div>
-          )}
+          
+          {!weather && <div className="flex items-start gap-3 px-4 py-3 mt-3 text-yellow-900 text-sm bg-yellow-300 border border-yellow-700 rounded-md shadow-lg">
+            <TriangleAlert className="w-5 h-5 mt-0.5" />
+            <p className="font-medium">
+              {language === "ja-JP"
+                ? "天気に基づいた推奨事項を取得するには、天気検索から天気データを取得してください。"
+                : "Please fetch weather data from Weather Lookup to get weather-based recommendations."}
+            </p>
+          </div>}
 
           {/* Input */}
           <div className="mt-2">
